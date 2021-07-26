@@ -1,0 +1,67 @@
+.sidenav {
+  height: 100%;
+  width: 0px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav span {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+.open__button:hover {
+  color: #f1f1f1;
+  cursor: pointer;
+  font-size: 2em;
+}
+#profile__icon {
+  font-size: 38px;
+}
+.closebtn:hover {
+  color: #f1f1f1;
+  cursor: pointer;
+}
+.sidenav span:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.side__profile {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid white;
+  margin-bottom: 30px;
+}
+.side__profile > img {
+  height: 60px;
+  width: 60px;
+  /* border: 3px solid white; */
+  border-radius: 50%;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav span {
+    font-size: 18px;
+  }
+}

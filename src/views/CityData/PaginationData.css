@@ -1,0 +1,30 @@
+.pagination {
+  display: flex;
+  height: 60px;
+  box-sizing: border-box;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 1.2em;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pagination li {
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+li {
+  text-decoration: none;
+  list-style: none;
+}
+.active {
+  background-color: #046cc7;
+}
+.active > a {
+  color: white;
+}

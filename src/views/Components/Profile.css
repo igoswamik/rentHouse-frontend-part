@@ -1,0 +1,99 @@
+.profile__header {
+  display: flex;
+  background: linear-gradient(180deg, rgb(19, 25, 33), transparent);
+  align-items: center;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  /* border-bottom: 2px solid lightgray; */
+  box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+}
+.profile__header .display__pic {
+  width: 40%;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile__header .profile__details {
+  width: 60%;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+}
+.profile__header .profile__details .myform .form__section {
+  position: relative;
+}
+.edit__update_button {
+  position: absolute;
+  right: 1em;
+}
+.dp {
+  height: 10rem;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+
+.row {
+  display: flex;
+  margin: 0;
+  height: 3rem;
+}
+
+.edit__icon {
+  transition: all 0.2s ease-in-out 0s;
+  height: 25px;
+  width: 25px;
+}
+
+.edit__icon:hover {
+  cursor: pointer;
+  transform: rotate(4deg);
+}
+
+i.fa.fa-gear {
+  transform: scale(2);
+  transition: all 0.3s ease-in-out 0s;
+}
+i.fa.fa-gear:hover {
+  transform: scale(2.5) rotate(45deg);
+}
+
+.itm {
+  border-radius: 0% 20% 0% 20%;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.houseDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 14rem;
+  margin: 2rem 0.5rem 0.5rem 0.5rem;
+  overflow: hidden;
+  /* border-radius: 40%; */
+  transition: all 0.5s ease-in-out 0s;
+}
+
+.det {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 2rem;
+}
+
+.housePic {
+  margin: 2rem 2rem 2rem 2rem;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.housePic img {
+  border-radius: 0% 20% 0% 20%;
+}
