@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Toast from "../../../Components/Toast";
-// reactstrap components
-// import "bootstrap/dist/css/bootstrap.min.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import "./CreatePost.css";
+import history from "../../../history";
 
 const Url = "http://localhost:8081/createpost";
 function CreatePost() {
@@ -32,8 +33,11 @@ function CreatePost() {
     axios
       .post(`${Url}`, Hstate)
       .then((response) => {
-        Toast.success("Batch added!!");
+        Toast.success("post created!!");
+        // toast("Wow so easy !");
         console.log("response.data=", response.data);
+        history.push(`/profile`);
+        window.location.reload();
       })
       .catch((err) => {
         Toast.error("Something went wrong!!");

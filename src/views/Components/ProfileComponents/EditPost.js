@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { withRouter, Redirect } from "react-router-dom";
 import axios from "axios";
 import Toast from "../../../Components/Toast";
-// reactstrap components
-// import "bootstrap/dist/css/bootstrap.min.css";
+import history from "../../../history";
 import "./CreatePost.css";
 
 const Url = "http://localhost:8081/post";
@@ -42,15 +42,17 @@ function EditPost() {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
-    Toast.success("Updated!!");
     console.log(Hstate);
     const data = JSON.stringify(Hstate);
     console.log(data);
     axios
       .put(`${Url}/${id}`, Hstate)
       .then((response) => {
-        Toast.success("Batch added!!");
+        Toast.success("Post Edited!!");
         console.log("response.data=", response.data);
+        // <Redirect form={`/post/${id}/edit`} to={`/post/${id}`} />;
+        history.push(`/post/${id}`);
+        setTimeout(window.location.reload(), 2000);
       })
       .catch((err) => {
         Toast.error("Something went wrong!!");
@@ -257,7 +259,7 @@ function EditPost() {
             />
           </div>
           <button type="submit" className="submit__button" onClick={onSubmit}>
-            submit
+            update
           </button>
         </form>
       </div>
@@ -265,4 +267,4 @@ function EditPost() {
   );
 }
 
-export default EditPost;
+export default withRouter(EditPost);

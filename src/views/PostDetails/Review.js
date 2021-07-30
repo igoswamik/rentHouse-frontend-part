@@ -5,7 +5,9 @@ import axios from "axios";
 const Url = "http://localhost:8081";
 function Review(props) {
   const { postid, reviews } = props;
+
   console.log("reviews", reviews);
+
   const [RState, setRState] = useState({
     title: "",
     rate: "",
@@ -19,6 +21,7 @@ function Review(props) {
       .then((response) => {
         // Toast.success("Batch added!!");
         console.log("response.data=", response.data);
+        window.location.reload();
       })
       .catch((err) => {
         // Toast.error("Something went wrong!!");

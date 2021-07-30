@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import Toast from "../../Components/Toast";
 const Url = "http://localhost:8081/post";
 function ReviewPost(props) {
   const { postid, review } = props;
@@ -9,11 +9,12 @@ function ReviewPost(props) {
     axios
       .delete(`${Url}/${postid}/${review._id}`)
       .then((response) => {
-        console.log("review deleted=", response);
+        Toast.success("Review deleted successfully!!");
+        // console.log("review deleted=", response);
+        setTimeout(window.location.reload(), 2000);
       })
       .catch((err) => {
-        //err.message
-        // Toast.error("Something went wrong!!");
+        Toast.error("Something went wrong!!");
         console.log(err.message);
       });
   };
