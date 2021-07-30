@@ -19,7 +19,7 @@ function CityListPage(props) {
     axios
       .get(`${Url}`)
       .then((response) => {
-        Toast.success("Gota city data!!");
+        Toast.success(`Results found for ${city} City!!`);
         setCityData(response.data);
         console.log("citylist response.data=", response.data);
       })

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./Review.css";
 import ReviewPost from "./ReviewPost";
 import axios from "axios";
+import Toast from "../../Components/Toast";
+
 const Url = "http://localhost:8081";
 function Review(props) {
   const { postid, reviews } = props;
-
-  console.log("reviews", reviews);
 
   const [RState, setRState] = useState({
     title: "",
@@ -14,20 +14,15 @@ function Review(props) {
     body: "",
   });
   const submitAddReview = (e) => {
-    // console.log(e.target);
-    console.log(RState);
     axios
       .post(`${Url}/post/${postid}/createreview`, RState)
       .then((response) => {
-        // Toast.success("Batch added!!");
-        console.log("response.data=", response.data);
-        window.location.reload();
+        Toast.success("Review added!!");
       })
       .catch((err) => {
-        // Toast.error("Something went wrong!!");
+        Toast.error("Something went wrong!!");
         console.log(err.message);
       });
-    console.log("Form subbmitted!");
     e.preventDefault();
     closeModal();
   };
@@ -42,43 +37,27 @@ function Review(props) {
     var anyChecked = rateRadiosArr.some((radio) => {
       return radio.checked === true;
     });
-    // console.log('anyChecked', anyChecked);
+
     if (!anyChecked) {
       var star1 = document.getElementById("star1");
       star1.focus();
-      // star1.checked = true;
     }
   };
 
   var closeModal = () => {
     const modal = document.getElementById("modal");
-    //const modalOverlay = document.querySelector(".modal-overlay");
-
     modal.className = "";
-    //modalOverlay.className = "";
-
     var form = document.getElementById("review-form");
     form.reset();
-    // // Set focus back to element that had it before the modal was opened
-    // focusedElementBeforeModal.focus();
   };
 
   var openModal = async () => {
     console.log("open model clicked!!");
     const modal = document.getElementById("modal");
-    // const modalOverlay = document.querySelector(".modal-overlay");
     modal.className = "show";
-    //modalOverlay.className = "show";
-
-    // submit form
-    // var form = document.getElementById("review-form");
-    // form.addEventListener("submit", submitAddReview, false);
   };
 
   var navRadioGroup = (evt) => {
-    // console.log('key', evt.key, 'code', evt.code, 'which', evt.which);
-    // console.log(evt);
-
     var star1 = document.getElementById("star1");
     var star2 = document.getElementById("star2");
     var star3 = document.getElementById("star3");
@@ -87,7 +66,6 @@ function Review(props) {
 
     if (["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(evt.key)) {
       evt.preventDefault();
-      // console.log('attempting return');
       if (evt.key === "ArrowRight" || evt.key === "ArrowDown") {
         switch (evt.target.id) {
           case "star1":

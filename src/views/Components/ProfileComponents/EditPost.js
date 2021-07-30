@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { withRouter, Redirect } from "react-router-dom";
 import axios from "axios";
 import Toast from "../../../Components/Toast";
-import history from "../../../history";
 import "./CreatePost.css";
-
+import { Redirect } from "react-router";
 const Url = "http://localhost:8081/post";
 function EditPost() {
   let { id } = useParams();
+  const [redirect, setRedirect] = useState(false);
   const [Hstate, setState] = useState({
     name: "",
     title: "",
@@ -41,18 +40,13 @@ function EditPost() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
     console.log(Hstate);
-    const data = JSON.stringify(Hstate);
-    console.log(data);
     axios
       .put(`${Url}/${id}`, Hstate)
       .then((response) => {
         Toast.success("Post Edited!!");
         console.log("response.data=", response.data);
-        // <Redirect form={`/post/${id}/edit`} to={`/post/${id}`} />;
-        history.push(`/post/${id}`);
-        setTimeout(window.location.reload(), 2000);
+        setRedirect(true);
       })
       .catch((err) => {
         Toast.error("Something went wrong!!");
@@ -80,7 +74,9 @@ function EditPost() {
     images,
   } = Hstate;
 
-  console.log("before render, hstate=", Hstate);
+  if (redirect === true) {
+    return <Redirect to={`/post/${id}`} />;
+  }
   return (
     <>
       <div className="container">
@@ -267,4 +263,4 @@ function EditPost() {
   );
 }
 
-export default withRouter(EditPost);
+export default EditPost;

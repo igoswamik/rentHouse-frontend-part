@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Toast from "../../../Components/Toast";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import "./CreatePost.css";
-import history from "../../../history";
+import { Redirect } from "react-router";
 
 const Url = "http://localhost:8081/createpost";
 function CreatePost() {
@@ -22,22 +20,17 @@ function CreatePost() {
     floor: "",
     images: [],
   });
+  const [redirect, setRedirect] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
-    Toast.success("Batch added!!");
     console.log(Hstate);
-    // const data = JSON.stringify(Hstate);
-    // console.log(data);
     axios
       .post(`${Url}`, Hstate)
       .then((response) => {
         Toast.success("post created!!");
-        // toast("Wow so easy !");
         console.log("response.data=", response.data);
-        history.push(`/profile`);
-        window.location.reload();
+        setRedirect(true);
       })
       .catch((err) => {
         Toast.error("Something went wrong!!");
@@ -64,6 +57,10 @@ function CreatePost() {
     floor,
     images,
   } = Hstate;
+
+  if (redirect === true) {
+    return <Redirect to="/" />;
+  }
   return (
     <>
       <div className="container">

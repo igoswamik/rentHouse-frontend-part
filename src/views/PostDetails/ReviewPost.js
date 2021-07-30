@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Toast from "../../Components/Toast";
+import { Redirect } from "react-router-dom";
 const Url = "http://localhost:8081/post";
 function ReviewPost(props) {
   const { postid, review } = props;
-  console.log("review=", review);
+  const [redirect, setRedirect] = useState(false);
+
   const deleteReview = () => {
     axios
       .delete(`${Url}/${postid}/${review._id}`)
       .then((response) => {
         Toast.success("Review deleted successfully!!");
-        // console.log("review deleted=", response);
-        setTimeout(window.location.reload(), 2000);
+        setRedirect(true);
       })
       .catch((err) => {
         Toast.error("Something went wrong!!");
         console.log(err.message);
       });
   };
+
+  if (redirect === true) {
+    return <Redirect to={`/post/${postid}`} />;
+  }
   return (
     <div>
       <div class="blog-card">
