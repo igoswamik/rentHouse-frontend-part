@@ -1,12 +1,52 @@
-import React, { Component, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import "./EntryPage.scss";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Toast from "../../../Components/Toast";
+import { Redirect } from "react-router";
+
+const Url = window.env.BASE_URL;
 function LoginPage() {
   const [showlogin, setstate] = useState(true);
+  const [LogDetails, setLogDetails] = useState({ email: "", password: "" });
+  const [redirect, setRedirect] = useState(false);
 
-  const onClick = () => {
-    console.log("clicked");
+  useEffect(() => {
+    if (localStorage.getItem("authToken")) {
+      Toast.info("You are already Logged In!!");
+      setRedirect(true);
+    }
+  }, []);
+
+  const Login = (e) => {
+    e.preventDefault();
+    console.log(LogDetails);
+    axios
+      .post(`${Url}/api/auth/login`, LogDetails)
+      .then((response) => {
+        Toast.success("Loged In!!");
+        localStorage.setItem("authToken", response.data.token);
+        localStorage.setItem("currentUserId", response.data.id);
+        setRedirect(true);
+        console.log("response.data=", response.data);
+      })
+      .catch((err) => {
+        Toast.error(err.response.data.error);
+        console.log(err.message);
+      });
   };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    LogDetails[e.target.name] = e.target.value;
+    setLogDetails(LogDetails);
+  };
+
+  const { email, password } = LogDetails;
+  if (redirect === true) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <section id="entry-page">
       <link
@@ -19,18 +59,32 @@ function LoginPage() {
         </Link>
       </div>
       {showlogin === true ? (
-        <form>
+        <form onSubmit={Login}>
           <h2>Welcome Back!</h2>
           <fieldset>
             <legend>Log In</legend>
             <ul>
               <li>
-                <label for="username">Username:</label>
-                <input type="text" id="username" required />
+                <label for="email">Email:</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  defaultValue={email}
+                  onChange={handleChange}
+                  required
+                />
               </li>
               <li>
                 <label for="password">Password:</label>
-                <input type="password" id="password" required />
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  defaultValue={password}
+                  onChange={handleChange}
+                  required
+                />
               </li>
               <li>
                 <i />
@@ -40,7 +94,7 @@ function LoginPage() {
               </li>
             </ul>
           </fieldset>
-          <button>Login</button>
+          <button type="submit">Login</button>
           <Link to="/register">
             <button type="button">Create an Account</button>
           </Link>

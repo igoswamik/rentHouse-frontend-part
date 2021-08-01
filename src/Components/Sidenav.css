@@ -56,7 +56,9 @@
   /* border: 3px solid white; */
   border-radius: 50%;
 }
-
+.sidenav__link {
+  cursor: pointer;
+}
 @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 15px;
