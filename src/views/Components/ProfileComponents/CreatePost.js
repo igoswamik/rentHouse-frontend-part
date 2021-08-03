@@ -3,14 +3,15 @@ import axios from "axios";
 import Toast from "../../../Components/Toast";
 import "./CreatePost.css";
 import { Redirect } from "react-router";
+import Header from "../../../Components/Header";
+import Footer from "../../../Components/Footer";
 
-const Url = "http://localhost:8081/createpost";
+const Url = "http://localhost:8081";
 function CreatePost() {
+  const userId = localStorage.getItem("currentUserId");
+  console.log("userId=", userId);
   const [Hstate, setState] = useState({
-    name: "",
     title: "",
-    email: "",
-    phone: "",
     Configuration: "",
     duration: "",
     price: 0,
@@ -26,7 +27,7 @@ function CreatePost() {
     e.preventDefault();
     console.log(Hstate);
     axios
-      .post(`${Url}`, Hstate)
+      .post(`${Url}/createpost/${userId}`, Hstate)
       .then((response) => {
         Toast.success("post created!!");
         console.log("response.data=", response.data);
@@ -44,10 +45,7 @@ function CreatePost() {
     setState(Hstate);
   };
   const {
-    name,
     title,
-    email,
-    phone,
     Configuration,
     duration,
     price,
@@ -64,52 +62,10 @@ function CreatePost() {
   return (
     <>
       <div className="container">
+        <Header />
         <h3 className="mb-0">Create New Post</h3>
 
         <form onSubmit={onSubmit} className="myform">
-          <div className="form__section">About Owner/Dealer</div>
-          <div className="input__group">
-            <label className="form-control-label" htmlFor="input-name">
-              Owner Name:
-            </label>
-            <input
-              className="form-control-alternative"
-              id="input-name"
-              defaultValue={name}
-              onChange={onChange}
-              name="name"
-              type="text"
-            />
-          </div>
-          <div className="input__group">
-            <label className="form-control-label" htmlFor="input-email">
-              Owner email:
-            </label>
-            <input
-              className="form-control-alternative"
-              id="input-email"
-              defaultValue={email}
-              onChange={onChange}
-              name="name"
-              //placeholder="John Doe"
-              type="text"
-            />
-          </div>
-          <div className="input__group">
-            <label className="form-control-label" htmlFor="input-phone">
-              Phone number:
-            </label>
-            <input
-              className="form-control-alternative"
-              id="input-phone"
-              defaultValue={phone}
-              onChange={onChange}
-              name="name"
-              //placeholder="John Doe"
-              type="text"
-            />
-          </div>
-
           <div className="form__section">About Property</div>
           <div className="input__group">
             <label className="form-control-label" htmlFor="input-title">
@@ -248,6 +204,7 @@ function CreatePost() {
             submit
           </button>
         </form>
+        <Footer />
       </div>
     </>
   );

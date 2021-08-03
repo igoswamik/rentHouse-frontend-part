@@ -4,8 +4,9 @@ import "./EntryPage.scss";
 import axios from "axios";
 import Toast from "../../../Components/Toast";
 import { Redirect } from "react-router";
+import env from "react-dotenv";
 
-const Url = window.env.BASE_URL;
+const Url = "http://localhost:8081";
 function RegisterPage() {
   const [RegistrationDetails, setRegistrationDetails] = useState({
     username: "",

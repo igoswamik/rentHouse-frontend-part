@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import "./Profile.css";
 import Post from "./Post";
 import ProfileHeader from "./ProfileComponents/ProfileHeader";
+import Header from "../../Components/Header";
+import Footer from "../../Components/Footer";
 function Profile() {
   var houses = [
     { price: 20000, size: 3, bedroom: 5 },
@@ -12,6 +14,7 @@ function Profile() {
 
   return (
     <div>
+      <Header />
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -22,6 +25,7 @@ function Profile() {
           <Post key={idx} id={idx} post={{}} />
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

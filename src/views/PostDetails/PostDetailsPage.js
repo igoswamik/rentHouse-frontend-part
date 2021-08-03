@@ -7,7 +7,8 @@ import Toast from "../../Components/Toast";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-
+import Header from "../../Components/Header";
+import Footer from "../../Components/Footer";
 const Url = "http://localhost:8081/post";
 function PostDetailsPage() {
   let { id } = useParams();
@@ -60,6 +61,7 @@ function PostDetailsPage() {
   console.log("postdetail=", PostDetail);
   return (
     <div className="container">
+      <Header />
       <div className="gallary__row">
         <ImageGallary />
       </div>
@@ -113,6 +115,7 @@ function PostDetailsPage() {
           Delete
         </button>
       </div>
+      <Footer />
     </div>
   );
 }

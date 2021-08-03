@@ -13,7 +13,8 @@ import EditPost from "./views/Components/ProfileComponents/EditPost";
 import LoginPage from "./views/Components/LoginRegister/LoginPage";
 import RegisterPage from "./views/Components/LoginRegister/RegisterPage";
 import { ToastContainer } from "react-toastify";
-
+import PrivateRoute from "./PrivateRoute";
+import PasswordReset from "./views/Components/LoginRegister/PasswordReset";
 function App() {
   return (
     // <Provider store={store}>
@@ -21,36 +22,30 @@ function App() {
       <div className="App">
         <ToastContainer />
         <Switch>
+          <PrivateRoute exact path="/createpost" component={CreatePost} />
+          <PrivateRoute exact path="/post/:id/edit" component={EditPost} />
+          <PrivateRoute exact path="/profile" component={(Header, Profile)} />
+
           <Route path="/login">
             <LoginPage />
           </Route>
           <Route path="/register">
             <RegisterPage />
           </Route>
-          <Route path="/profile">
-            <Header />
-            <Profile />
-            <Footer />
+          <Route path="/passwordreset/:tokenId">
+            <PasswordReset />
           </Route>
-          <Route path="/createpost">
-            <Header />
-            <CreatePost />
-            <Footer />
-          </Route>
+
           <Route path="/citydata/:city">
             <Header />
             <CityListPage />
             <Footer />
           </Route>
-          <Route path="/post/:id/edit">
-            <Header />
-            <EditPost />
-            <Footer />
-          </Route>
+
           <Route path="/post/:id">
-            <Header />
+            {/* <Header /> */}
             <PostDetailsPage />
-            <Footer />
+            {/* <Footer /> */}
           </Route>
           <Route path="/">
             <Header />

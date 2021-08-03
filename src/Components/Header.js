@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import Sidenav from "./Sidenav";
 import Toast from "./Toast";
 import axios from "axios";
-const Url = window.env.BASE_URL;
+import env from "react-dotenv";
+const Url = "http://localhost:8081";
+console.log("Base Url in header=", Url);
 function Header() {
   const [currentUser, setCurrentUser] = useState(null);
   //const [redirect, setRedirect] = useState(false);

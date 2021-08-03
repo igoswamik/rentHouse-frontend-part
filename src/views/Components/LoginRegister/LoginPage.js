@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Toast from "../../../Components/Toast";
 import { Redirect } from "react-router";
-
-const Url = window.env.BASE_URL;
+import env from "react-dotenv";
+const Url = "http://localhost:8081";
+console.log("inside login url=", Url);
 function LoginPage() {
   const [showlogin, setstate] = useState(true);
   const [LogDetails, setLogDetails] = useState({ email: "", password: "" });
   const [redirect, setRedirect] = useState(false);
-
+  const [resetemail, setResetEmail] = useState("");
   useEffect(() => {
     if (localStorage.getItem("authToken")) {
       Toast.info("You are already Logged In!!");
@@ -28,6 +29,21 @@ function LoginPage() {
         localStorage.setItem("authToken", response.data.token);
         localStorage.setItem("currentUserId", response.data.id);
         setRedirect(true);
+        console.log("response.data=", response.data);
+      })
+      .catch((err) => {
+        Toast.error(err.response.data.error);
+        console.log(err.message);
+      });
+  };
+
+  const handleResetPassword = (e) => {
+    e.preventDefault();
+    console.log(resetemail);
+    axios
+      .post(`${Url}/api/auth/forgotpassword`, { email: resetemail })
+      .then((response) => {
+        Toast.success("reset link sent on your Email!!");
         console.log("response.data=", response.data);
       })
       .catch((err) => {
@@ -110,11 +126,17 @@ function LoginPage() {
               </li>
               <li>
                 <label for="email">Email:</label>
-                <input type="email" id="email" required />
+                <input
+                  type="email"
+                  id="email"
+                  defaultValue={resetemail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  required
+                />
               </li>
             </ul>
           </fieldset>
-          <button>Send Reset Link</button>
+          <button onClick={handleResetPassword}>Send Reset Link</button>
           <button type="button" onClick={() => setstate(true)}>
             Go Back
           </button>

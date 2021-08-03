@@ -4,15 +4,15 @@ import axios from "axios";
 import Toast from "../../../Components/Toast";
 import "./CreatePost.css";
 import { Redirect } from "react-router";
-const Url = "http://localhost:8081/post";
+import Header from "../../../Components/Header";
+import Footer from "../../../Components/Footer";
+
+const Url = "http://localhost:8081";
 function EditPost() {
   let { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [Hstate, setState] = useState({
-    name: "",
     title: "",
-    email: "",
-    phone: "",
     configuration: "",
     duration: "",
     price: "",
@@ -24,7 +24,7 @@ function EditPost() {
   });
   const getPostDetailsFromServer = () => {
     axios
-      .get(`${Url}/${id}`)
+      .get(`${Url}/post/${id}`)
       .then((response) => {
         setState(response.data);
         console.log("response.data=", response.data);
@@ -60,10 +60,7 @@ function EditPost() {
     setState(Hstate);
   };
   const {
-    name,
     title,
-    email,
-    phone,
     configuration,
     duration,
     price,
@@ -80,52 +77,10 @@ function EditPost() {
   return (
     <>
       <div className="container">
+        <Header />
         <h3 className="mb-0">Create New Post</h3>
 
         <form className="myform">
-          <div className="form__section">About Owner/Dealer</div>
-          <div className="input__group">
-            <label className="form-control-label" htmlFor="input-name">
-              Owner Name:
-            </label>
-            <input
-              className="form-control-alternative"
-              id="input-name"
-              defaultValue={name}
-              onChange={onChange}
-              name="name"
-              type="text"
-            />
-          </div>
-          <div className="input__group">
-            <label className="form-control-label" htmlFor="input-email">
-              Owner email:
-            </label>
-            <input
-              className="form-control-alternative"
-              id="input-email"
-              defaultValue={email}
-              onChange={onChange}
-              name="name"
-              //placeholder="John Doe"
-              type="text"
-            />
-          </div>
-          <div className="input__group">
-            <label className="form-control-label" htmlFor="input-phone">
-              Phone number:
-            </label>
-            <input
-              className="form-control-alternative"
-              id="input-phone"
-              defaultValue={phone}
-              onChange={onChange}
-              name="name"
-              //placeholder="John Doe"
-              type="text"
-            />
-          </div>
-
           <div className="form__section">About Property</div>
           <div className="input__group">
             <label className="form-control-label" htmlFor="input-title">
@@ -258,6 +213,7 @@ function EditPost() {
             update
           </button>
         </form>
+        <Footer />
       </div>
     </>
   );
